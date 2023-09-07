@@ -1,19 +1,16 @@
-package main.java.spotifyj.authentication;
+package spotifyj.authentication;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.net.http.*;
 import java.util.Map;
-import java.util.stream.Collectors;
-import main.java.spotifyj.utilities.utilities;
+import spotifyj.utilities.utilities;
 
 public class authentication {
 
-    main.java.spotifyj.utilities.utilities utilities = new utilities();
+    utilities utilities = new utilities();
 
     public HashMap<String, String> requestBearerToken(HashMap<String, String> credentials) throws IOException, InterruptedException {
 

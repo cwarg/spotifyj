@@ -1,6 +1,6 @@
-package main.java.spotifyj.userInterface;
+package spotifyj.userInterface;
 
-import main.java.spotifyj.utilities.utilities;
+import spotifyj.utilities.utilities;
 
 public class musicPlayer {
 

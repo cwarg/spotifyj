@@ -38,3 +38,5 @@ bin/
 *.yaml
 *.properties
 *.iml
+.settings/
+target/

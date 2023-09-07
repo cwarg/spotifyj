@@ -1,12 +1,10 @@
-package main.java.spotifyj;
+package spotifyj;
 
-import main.java.spotifyj.authentication.authentication;
-import main.java.spotifyj.utilities.utilities;
-import main.java.spotifyj.userInterface.musicPlayer;
-
+import spotifyj.authentication.authentication;
+import spotifyj.utilities.utilities;
+import spotifyj.userInterface.musicPlayer;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class spotifyj {
     public static void main(String[] args) throws IOException, InterruptedException {

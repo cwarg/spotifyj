@@ -1,4 +1,4 @@
-package main.java.spotifyj.utilities;
+package spotifyj.utilities;
 
 import java.io.FileInputStream;
 import java.io.IOException;

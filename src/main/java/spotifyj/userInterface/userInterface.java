@@ -1,4 +1,4 @@
-package main.java.spotifyj.userInterface;
+package spotifyj.userInterface;
 
 public class userInterface {
 }
