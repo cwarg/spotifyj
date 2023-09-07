@@ -37,3 +37,4 @@ bin/
 *.yml
 *.yaml
 *.properties
+*.iml
