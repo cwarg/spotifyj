@@ -11,6 +11,7 @@ import java.util.Properties;
 import java.net.http.*;
 import java.util.Map;
 import java.util.stream.Collectors;
+import main.java.spotifyj.utilities.jsonParser;
 
 public class authentication {
 
@@ -33,7 +34,7 @@ public class authentication {
         return null;
     }
 
-    private HttpRequest.BodyPublisher getParamsUrlEncoded(Map<String, String> parameters) {
+    private HttpRequest.BodyPublisher encodeURLParams(Map<String, String> parameters) {
         String urlEncoded = parameters.entrySet()
                 .stream()
                 .map(e -> e.getKey() + "=" + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
@@ -41,27 +42,27 @@ public class authentication {
         return HttpRequest.BodyPublishers.ofString(urlEncoded);
     }
 
-    public String requestBearerToken(HashMap<String, String> credentials) throws IOException, InterruptedException {
+    public HashMap<String, String> requestBearerToken(HashMap<String, String> credentials) throws IOException, InterruptedException {
+
+        jsonParser jsonparser = new jsonParser();
 
         String tokenURI = "https://accounts.spotify.com/api/token";
         Map<String, String> bodyParams = new HashMap<>();
         bodyParams.put("grant_type", "client_credentials");
 
         String authorizationHeader = "Basic " + Base64.getEncoder().encodeToString((credentials.get("spotifyj_clientid") + ":" + credentials.get("spotifyj_clientsecret")).getBytes());
-        System.out.println(authorizationHeader);
 
         HttpClient httpclient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(tokenURI))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Authorization", authorizationHeader)
-                .POST(getParamsUrlEncoded(bodyParams))
+                .POST(encodeURLParams(bodyParams))
                 .build();
         HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
         String body = response.body();
         int statusCode = response.statusCode();
-        //todo: parse body for access_token
-        return body;
+        return jsonparser.parseJSON(body);
     }
 
 }

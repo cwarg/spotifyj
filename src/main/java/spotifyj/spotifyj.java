@@ -1,6 +1,7 @@
 package main.java.spotifyj;
 
 import main.java.spotifyj.authentication.authentication;
+import main.java.spotifyj.utilities.jsonParser;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,7 +11,8 @@ public class spotifyj {
         authentication spotifyAuth = new authentication();
         HashMap<String, String> credentials = spotifyAuth.loadProperties();
 
-        String bearer = spotifyAuth.requestBearerToken(credentials);
-        System.out.println(bearer);
+        HashMap<String, String> response = spotifyAuth.requestBearerToken(credentials);
+        System.out.println(response.get("access_token"));
+
     }
 }
