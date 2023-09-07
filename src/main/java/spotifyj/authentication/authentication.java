@@ -14,13 +14,6 @@ import main.java.spotifyj.utilities.utilities;
 public class authentication {
 
     main.java.spotifyj.utilities.utilities utilities = new utilities();
-    private HttpRequest.BodyPublisher encodeURLParams(Map<String, String> parameters) {
-        String urlEncoded = parameters.entrySet()
-                .stream()
-                .map(e -> e.getKey() + "=" + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
-                .collect(Collectors.joining("&"));
-        return HttpRequest.BodyPublishers.ofString(urlEncoded);
-    }
 
     public HashMap<String, String> requestBearerToken(HashMap<String, String> credentials) throws IOException, InterruptedException {
 
@@ -35,7 +28,7 @@ public class authentication {
                 .uri(URI.create(tokenURI))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Authorization", authorizationHeader)
-                .POST(encodeURLParams(bodyParams))
+                .POST(utilities.encodeURLParams(bodyParams))
                 .build();
         HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
         String statusCode = String.valueOf(response.statusCode());

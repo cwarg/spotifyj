@@ -2,9 +2,11 @@ package main.java.spotifyj;
 
 import main.java.spotifyj.authentication.authentication;
 import main.java.spotifyj.utilities.utilities;
+import main.java.spotifyj.userInterface.musicPlayer;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class spotifyj {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -15,5 +17,37 @@ public class spotifyj {
         HashMap<String, String> response = spotifyAuth.requestBearerToken(credentials);
         String bearerToken = response.get("access_token");
         String responseCode = response.get("status_code");
+
+        musicPlayer mp = new musicPlayer(bearerToken);
+
+        System.out.println("\nWhat would you like to do?");
+        System.out.println("""
+                +--------+----------+
+                | Choice | Function |
+                +--------+----------+
+                |      1 | Search   |
+                |      2 | Pause    |
+                |      3 | Test     |
+                +--------+----------+
+                """);
+
+        String userInput = utilities.getUserInput();
+
+        switch (userInput){
+            case "1":
+                mp.search();
+                break;
+            case "2":
+                System.out.println("you chose 2");
+                break;
+            case "3":
+                System.out.println("you chose 3");
+                break;
+            default:
+                System.out.println("you chose incorrectly");
+                break;
+
+        }
+
     }
 }
