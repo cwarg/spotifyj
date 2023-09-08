@@ -37,7 +37,7 @@ public class musicPlayer {
         switch (userIn) {
             case "1":
                 q = utilities.searchUriCreator(formattedInputString, "album");
-                System.out.println(utilities.querySpotifyAPI(bearerToken, q));
+                System.out.println(utilities.querySpotifyAPI(bearerToken, q, "GET"));
                 break;
             case "2":
                 break;

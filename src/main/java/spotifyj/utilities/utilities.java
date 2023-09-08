@@ -59,18 +59,41 @@ public class utilities {
         return HttpRequest.BodyPublishers.ofString(urlEncoded);
     }
 
-    public String querySpotifyAPI(String bearerToken, String stringURI) throws IOException, InterruptedException {
+    public String querySpotifyAPI(String bearerToken, String stringURI, String httpMethod) throws IOException, InterruptedException {
         String authorizationHeader = "Bearer " + bearerToken;
 
         HttpClient httpclient = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(stringURI))
-                .header("Authorization", authorizationHeader)
-                .GET()
-                .build();
-        HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
-        String statusCode = String.valueOf(response.statusCode());
-        return response.body();
+        if (httpMethod == "GET") {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(stringURI))
+                    .header("Authorization", authorizationHeader)
+                    .GET()
+                    .build();
+            HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
+            String statusCode = String.valueOf(response.statusCode());
+            return response.body();
+        }
+        else if (httpMethod == "POST") {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(stringURI))
+                    .header("Authorization", authorizationHeader)
+                    .POST(HttpRequest.BodyPublishers.noBody())
+                    .build();
+            HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
+            String statusCode = String.valueOf(response.statusCode());
+            return response.body();
+        }
+        else if (httpMethod == "PUT") {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(stringURI))
+                    .header("Authorization", authorizationHeader)
+                    .PUT(HttpRequest.BodyPublishers.noBody())
+                    .build();
+            HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
+            String statusCode = String.valueOf(response.statusCode());
+            return response.body();
+        }
+        return null;
     }
 
     public String inputParser(String inputString) {
