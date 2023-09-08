@@ -18,34 +18,36 @@ public class spotifyj {
 
         musicPlayer mp = new musicPlayer(bearerToken);
 
-        System.out.println("\nWhat would you like to do?");
-        System.out.println("""
-                +--------+----------+
-                | Choice | Function |
-                +--------+----------+
-                |      1 | Search   |
-                |      2 | Pause    |
-                |      3 | Test     |
-                +--------+----------+
-                """);
+        while (true) {
 
-        String userInput = utilities.getUserInput();
+            System.out.println("\nWhat would you like to do?");
+            System.out.println("""
+                    +--------+----------+
+                    | Choice | Function |
+                    +--------+----------+
+                    |      1 | Search   |
+                    |      2 | Pause    |
+                    |      3 | Test     |
+                    +--------+----------+
+                    """);
 
-        switch (userInput){
-            case "1":
-                mp.search();
-                break;
-            case "2":
-                System.out.println("you chose 2");
-                break;
-            case "3":
-                System.out.println("you chose 3");
-                break;
-            default:
-                System.out.println("you chose incorrectly");
-                break;
+            String userInput = utilities.getUserInput();
 
+            switch (userInput) {
+                case "1":
+                    mp.search();
+                    break;
+                case "2":
+                    System.out.println("you chose 2");
+                    break;
+                case "3":
+                    System.out.println("you chose 3");
+                    break;
+                default:
+                    System.out.println("you chose incorrectly");
+                    break;
+
+            }
         }
-
     }
 }

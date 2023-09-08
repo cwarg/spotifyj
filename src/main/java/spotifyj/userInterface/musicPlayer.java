@@ -2,6 +2,8 @@ package spotifyj.userInterface;
 
 import spotifyj.utilities.utilities;
 
+import java.io.IOException;
+
 public class musicPlayer {
 
     utilities utilities = new utilities();
@@ -10,7 +12,12 @@ public class musicPlayer {
     public musicPlayer(String m_bearerToken) {
         bearerToken = m_bearerToken;
     }
-    public void search() {
+    public void search() throws IOException, InterruptedException {
+
+        System.out.println("Enter a search string:");
+        String userSearchString = utilities.getUserInput();
+        String formattedInputString = utilities.inputParser(userSearchString);
+        String q;
         System.out.println("Please choose what you would like to search for:");
         System.out.println("""
                 +--------+-----------+
@@ -29,6 +36,8 @@ public class musicPlayer {
 
         switch (userIn) {
             case "1":
+                q = utilities.searchUriCreator(formattedInputString, "album");
+                System.out.println(utilities.querySpotifyAPI(bearerToken, q));
                 break;
             case "2":
                 break;
@@ -43,8 +52,11 @@ public class musicPlayer {
             case "7":
                 break;
             default:
+                System.out.println("Invalid selection.");
                 break;
         }
+
+
 
 
 

@@ -42,9 +42,7 @@ public class utilities {
             jsonObject.put(colonSplit[0], colonSplit[1]);
 
         }
-
         return jsonObject;
-
     }
 
     public String getUserInput() {
@@ -68,10 +66,18 @@ public class utilities {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(stringURI))
                 .header("Authorization", authorizationHeader)
-                .POST(HttpRequest.BodyPublishers.noBody())
+                .GET()
                 .build();
         HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
         String statusCode = String.valueOf(response.statusCode());
         return response.body();
+    }
+
+    public String inputParser(String inputString) {
+        return inputString.replace(" ", "+");
+    }
+
+    public String searchUriCreator (String userInputString, String userSearchCategory) {
+        return "https://api.spotify.com/v1/search?" + "q=" + userInputString + "&type=" + userSearchCategory;
     }
 }
