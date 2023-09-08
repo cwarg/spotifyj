@@ -27,9 +27,6 @@ public class musicPlayer {
                 |      2 | Artist    |
                 |      3 | Playlist  |
                 |      4 | Track     |
-                |      5 | Show      |
-                |      6 | Episode   |
-                |      7 | Audiobook |
                 +--------+-----------+
                 """);
         String userIn = utilities.getUserInput();
@@ -47,12 +44,6 @@ public class musicPlayer {
             case "3":
                 break;
             case "4":
-                break;
-            case "5":
-                break;
-            case "6":
-                break;
-            case "7":
                 break;
             default:
                 System.out.println("Invalid selection.");
