@@ -38,6 +38,9 @@ public class musicPlayer {
             case "1":
                 q = utilities.searchUriCreator(formattedInputString, "album");
                 System.out.println(utilities.querySpotifyAPI(bearerToken, q, "GET"));
+                //TODO: once the albums are returned, possibly play the whole album or look at tracks specifically in that album.
+                //sout("1. Play album 2. List Tracks")
+                //Within another ascii table, might as well keep that format for now
                 break;
             case "2":
                 break;
