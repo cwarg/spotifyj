@@ -15,19 +15,36 @@ public class spotifyj {
         HashMap<String, String> response = spotifyAuth.requestBearerToken(credentials);
         String bearerToken = response.get("access_token");
         String responseCode = response.get("status_code");
+        boolean finished = false;
 
         musicPlayer mp = new musicPlayer(bearerToken);
 
-        while (true) {
+        while (!finished) {
+            utilities.clearTerminal();
+            System.out.println("""
+                                 ,-.----.                ,--.'|_     ,--,      .--.,                        \s
+                                 \\    /  \\     ,---.     |  | :,'  ,--.'|    ,--.'  \\                   .--.\s
+                      .--.--.    |   :    |   '   ,'\\    :  : ' :  |  |,     |  | /\\/                 .--,`|\s
+                     /  /    '   |   | .\\ :  /   /   | .;__,'  /   `--'_     :  : :         .--,      |  |. \s
+                    |  :  /`./   .   : |: | .   ; ,. : |  |   |    ,' ,'|    :  | |-,     /_ ./|      '--`_ \s
+                    |  :  ;_     |   |  \\ : '   | |: : :__,'| :    '  | |    |  : :/|  , ' , ' :      ,--,'|\s
+                     \\  \\    `.  |   : .  | '   | .; :   '  : |__  |  | :    |  |  .' /___/ \\: |      |  | '\s
+                      `----.   \\ :     |`-' |   :    |   |  | '.'| '  : |__  '  : '    .  \\  ' |      :  | |\s
+                     /  /`--'  / :   : :     \\   \\  /    ;  :    ; |  | '.'| |  | |     \\  ;   :    __|  : '\s
+                    '--'.     /  |   | :      `----'     |  ,   /  ;  :    ; |  : \\      \\  \\  ;  .'__/\\_: |\s
+                      `--'---'   `---'.|                  ---`-'   |  ,   /  |  |,'       :  \\  \\ |   :    :\s
+                                   `---`                            ---`-'   `--'          \\  ' ;  \\   \\  / \s
+                                                                                            `--`    `--`-'  \s""");
 
             System.out.println("\nWhat would you like to do?");
             System.out.println("""
-                    +--------+----------+
+                    +--------+----------+------------------------------------------------------
                     | Choice | Function |
                     +--------+----------+
                     |      1 | Search   |
                     |      2 | Pause    |
                     |      3 | Test     |
+                    |      4 | Quit     |
                     +--------+----------+
                     """);
 
@@ -42,6 +59,9 @@ public class spotifyj {
                     break;
                 case "3":
                     System.out.println("you chose 3");
+                    break;
+                case "4":
+                    finished = true;
                     break;
                 default:
                     System.out.println("you chose incorrectly");

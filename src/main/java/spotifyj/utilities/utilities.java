@@ -103,4 +103,13 @@ public class utilities {
     public String searchUriCreator (String userInputString, String userSearchCategory) {
         return "https://api.spotify.com/v1/search?" + "q=" + userInputString + "&type=" + userSearchCategory;
     }
+
+    public void clearTerminal() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    public void animateText() {
+        //TODO: load file and print characters one by one to imitate animating
+    }
 }
