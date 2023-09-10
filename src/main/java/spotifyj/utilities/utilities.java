@@ -59,41 +59,49 @@ public class utilities {
         return HttpRequest.BodyPublishers.ofString(urlEncoded);
     }
 
-    public String querySpotifyAPI(String bearerToken, String stringURI, String httpMethod) throws IOException, InterruptedException {
+    public String getSpotifyAPI(String bearerToken, String stringURI, String body) throws IOException, InterruptedException {
         String authorizationHeader = "Bearer " + bearerToken;
 
-        HttpClient httpclient = HttpClient.newHttpClient();
-        if (httpMethod == "GET") {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(stringURI))
-                    .header("Authorization", authorizationHeader)
-                    .GET()
-                    .build();
-            HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
-            String statusCode = String.valueOf(response.statusCode());
-            return response.body();
-        }
-        else if (httpMethod == "POST") {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(stringURI))
-                    .header("Authorization", authorizationHeader)
-                    .POST(HttpRequest.BodyPublishers.noBody())
-                    .build();
-            HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
-            String statusCode = String.valueOf(response.statusCode());
-            return response.body();
-        }
-        else if (httpMethod == "PUT") {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(stringURI))
-                    .header("Authorization", authorizationHeader)
-                    .PUT(HttpRequest.BodyPublishers.noBody())
-                    .build();
-            HttpResponse<String> response = httpclient.send(request, HttpResponse.BodyHandlers.ofString());
-            String statusCode = String.valueOf(response.statusCode());
-            return response.body();
-        }
-        return null;
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(stringURI))
+                .header("Authorization", authorizationHeader)
+                .GET()
+                .build();
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        String statusCode = String.valueOf(response.statusCode());
+        return response.body();
+    }
+
+    public String postSpotifyAPI (String bearerToken, String stringURI, String body) throws IOException, InterruptedException {
+        String authorizationHeader = "Bearer " + bearerToken;
+
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(stringURI))
+                .header("Authorization", authorizationHeader)
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        String statusCode = String.valueOf(response.statusCode());
+        return response.body();
+
+    }
+
+    public String putSpotifyAPI (String bearerToken, String stringURI, String body) throws IOException, InterruptedException {
+        String authorizationHeader = "Bearer " + bearerToken;
+
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(stringURI))
+                .header("Authorization", authorizationHeader)
+                .PUT(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        String statusCode = String.valueOf(response.statusCode());
+        System.out.println(response.body());
+        System.out.println(statusCode);
+        return response.body();
     }
 
     public String inputParser(String inputString) {
@@ -109,7 +117,16 @@ public class utilities {
         System.out.flush();
     }
 
-    public void animateText() {
-        //TODO: load file and print characters one by one to imitate animating
+    public void animateText(FileInputStream inputFileToPrint) throws IOException, InterruptedException {
+        int character;
+        List<Integer> fileContent = new ArrayList<Integer>();
+        while ((character = inputFileToPrint.read()) != -1) {
+            fileContent.add(character);
+        }
+
+        for (int printableChar : fileContent) {
+            System.out.print((char)printableChar);
+            Thread.sleep(1);
+        }
     }
 }

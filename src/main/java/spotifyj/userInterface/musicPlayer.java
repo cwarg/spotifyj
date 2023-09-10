@@ -34,7 +34,7 @@ public class musicPlayer {
         switch (userIn) {
             case "1":
                 q = utilities.searchUriCreator(formattedInputString, "album");
-                System.out.println(utilities.querySpotifyAPI(bearerToken, q, "GET"));
+                System.out.println(utilities.getSpotifyAPI(bearerToken, q, ""));
                 //TODO: once the albums are returned, possibly play the whole album or look at tracks specifically in that album.
                 //sout("1. Play album 2. List Tracks")
                 //Within another ascii table, might as well keep that format for now
@@ -54,6 +54,15 @@ public class musicPlayer {
 
 
 
+    }
+    public void play() throws IOException, InterruptedException {
+        utilities.putSpotifyAPI(bearerToken, "https://api.spotify.com/v1/me/player/play", "{\n" +
+                "    \"context_uri\": \"spotify:album:5ht7ItJgpBH7W6vJ5BqpPr\",\n" +
+                "    \"offset\": {\n" +
+                "        \"position\": 5\n" +
+                "    },\n" +
+                "    \"position_ms\": 0\n" +
+                "}");
     }
     public void pause() {}
     public void skip() {}

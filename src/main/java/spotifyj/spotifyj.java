@@ -3,6 +3,8 @@ package spotifyj;
 import spotifyj.authentication.authentication;
 import spotifyj.utilities.utilities;
 import spotifyj.userInterface.musicPlayer;
+
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -14,28 +16,15 @@ public class spotifyj {
 
         HashMap<String, String> response = spotifyAuth.requestBearerToken(credentials);
         String bearerToken = response.get("access_token");
-        String responseCode = response.get("status_code");
+        String bearerResponseCode = response.get("status_code");
         boolean finished = false;
 
         musicPlayer mp = new musicPlayer(bearerToken);
 
-        while (!finished) {
-            utilities.clearTerminal();
-            System.out.println("""
-                                 ,-.----.                ,--.'|_     ,--,      .--.,                        \s
-                                 \\    /  \\     ,---.     |  | :,'  ,--.'|    ,--.'  \\                   .--.\s
-                      .--.--.    |   :    |   '   ,'\\    :  : ' :  |  |,     |  | /\\/                 .--,`|\s
-                     /  /    '   |   | .\\ :  /   /   | .;__,'  /   `--'_     :  : :         .--,      |  |. \s
-                    |  :  /`./   .   : |: | .   ; ,. : |  |   |    ,' ,'|    :  | |-,     /_ ./|      '--`_ \s
-                    |  :  ;_     |   |  \\ : '   | |: : :__,'| :    '  | |    |  : :/|  , ' , ' :      ,--,'|\s
-                     \\  \\    `.  |   : .  | '   | .; :   '  : |__  |  | :    |  |  .' /___/ \\: |      |  | '\s
-                      `----.   \\ :     |`-' |   :    |   |  | '.'| '  : |__  '  : '    .  \\  ' |      :  | |\s
-                     /  /`--'  / :   : :     \\   \\  /    ;  :    ; |  | '.'| |  | |     \\  ;   :    __|  : '\s
-                    '--'.     /  |   | :      `----'     |  ,   /  ;  :    ; |  : \\      \\  \\  ;  .'__/\\_: |\s
-                      `--'---'   `---'.|                  ---`-'   |  ,   /  |  |,'       :  \\  \\ |   :    :\s
-                                   `---`                            ---`-'   `--'          \\  ' ;  \\   \\  / \s
-                                                                                            `--`    `--`-'  \s""");
+        utilities.clearTerminal();
+        utilities.animateText( new FileInputStream("logo.txt"));
 
+        while (!finished) {
             System.out.println("\nWhat would you like to do?");
             System.out.println("""
                     +--------+----------+------------------------------------------------------
@@ -58,7 +47,7 @@ public class spotifyj {
                     System.out.println("you chose 2");
                     break;
                 case "3":
-                    System.out.println("you chose 3");
+                    spotifyjTest.tester();
                     break;
                 case "4":
                     finished = true;
