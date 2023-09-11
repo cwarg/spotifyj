@@ -17,6 +17,7 @@ public class spotifyjTest {
             String bearerToken = response.get("access_token");
             musicPlayer mp = new musicPlayer(bearerToken);
 //            mp.play();
+            spotifyAuth.requestUserAuth();
         }
         catch (Exception e) {
             e.printStackTrace();

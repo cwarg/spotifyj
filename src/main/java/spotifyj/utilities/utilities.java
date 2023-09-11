@@ -61,6 +61,14 @@ public class utilities {
         return HttpRequest.BodyPublishers.ofString(urlEncoded);
     }
 
+    public String encodeURLParamsString(Map<String, String> parameters) {
+        String urlEncoded = parameters.entrySet()
+                .stream()
+                .map(e -> e.getKey() + "=" + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
+                .collect(Collectors.joining("&"));
+        return urlEncoded;
+    }
+
     public String getSpotifyAPI(String bearerToken, String stringURI, String body) throws IOException, InterruptedException {
         String authorizationHeader = "Bearer " + bearerToken;
 
