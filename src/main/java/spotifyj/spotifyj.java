@@ -12,9 +12,8 @@ public class spotifyj {
     public static void main(String[] args) throws IOException, InterruptedException {
         authentication spotifyAuth = new authentication();
         utilities utilities = new utilities();
-        HashMap<String, String> credentials = utilities.loadProperties();
 
-        HashMap<String, String> response = spotifyAuth.requestBearerToken(credentials);
+        HashMap<String, String> response = spotifyAuth.requestBearerToken();
         String bearerToken = response.get("access_token");
         String bearerResponseCode = response.get("status_code");
         boolean finished = false;

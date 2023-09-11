@@ -11,14 +11,19 @@ import spotifyj.utilities.utilities;
 public class authentication {
 
     utilities utilities = new utilities();
+    HashMap<String, String> credentials;
 
-    public HashMap<String, String> requestBearerToken(HashMap<String, String> credentials) throws IOException, InterruptedException {
+    public authentication() {
+        this.credentials = utilities.loadProperties();
+    }
+
+    public HashMap<String, String> requestBearerToken() throws IOException, InterruptedException {
 
         String tokenURI = "https://accounts.spotify.com/api/token";
         Map<String, String> bodyParams = new HashMap<>();
         bodyParams.put("grant_type", "client_credentials");
 
-        String authorizationHeader = "Basic " + Base64.getEncoder().encodeToString((credentials.get("spotifyj_clientid") + ":" + credentials.get("spotifyj_clientsecret")).getBytes());
+        String authorizationHeader = "Basic " + Base64.getEncoder().encodeToString((this.credentials.get("spotifyj_clientid") + ":" + credentials.get("spotifyj_clientsecret")).getBytes());
 
         HttpClient httpclient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -32,6 +37,11 @@ public class authentication {
         HashMap<String, String> responseObject = utilities.parseJSON(response.body());
         responseObject.put("status_code", statusCode);
         return responseObject;
+    }
+
+    public void requestUserAuth() throws IOException, InterruptedException {
+        String tokenURI = "https://accounts.spotify.com/authorize?";
+        String state = utilities.generateRandomString(16);
     }
 
 }

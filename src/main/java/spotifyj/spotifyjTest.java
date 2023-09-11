@@ -13,13 +13,10 @@ public class spotifyjTest {
         try {
             authentication spotifyAuth = new authentication();
             utilities utilities = new utilities();
-            HashMap<String, String> credentials = utilities.loadProperties();
-
-            HashMap<String, String> response = spotifyAuth.requestBearerToken(credentials);
+            HashMap<String, String> response = spotifyAuth.requestBearerToken();
             String bearerToken = response.get("access_token");
             musicPlayer mp = new musicPlayer(bearerToken);
 //            mp.play();
-            System.out.println(utilities.generateCodeChallenge(utilities.generateRandomString(128)));
         }
         catch (Exception e) {
             e.printStackTrace();
