@@ -18,7 +18,8 @@ public class spotifyjTest {
             HashMap<String, String> response = spotifyAuth.requestBearerToken(credentials);
             String bearerToken = response.get("access_token");
             musicPlayer mp = new musicPlayer(bearerToken);
-            mp.play();
+//            mp.play();
+            System.out.println(utilities.generateCodeChallenge(utilities.generateRandomString(128)));
         }
         catch (Exception e) {
             e.printStackTrace();

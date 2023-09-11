@@ -8,6 +8,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -128,5 +130,22 @@ public class utilities {
             System.out.print((char)printableChar);
             Thread.sleep(1);
         }
+    }
+
+    public String generateRandomString(int length) {
+        String text = "";
+        String possibleText = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (int i = 0; i < length; i++) {
+            text += possibleText.charAt((int) Math.floor(Math.random() * possibleText.length()));
+        }
+        return text;
+    }
+
+    public String generateCodeChallenge(String codeVerifier) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hashedVerifier = digest.digest(codeVerifier.getBytes(StandardCharsets.UTF_8));
+        String encodedVerifier = Base64.getEncoder().encodeToString(hashedVerifier);
+        return encodedVerifier;
     }
 }
