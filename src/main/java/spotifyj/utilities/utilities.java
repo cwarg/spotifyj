@@ -1,9 +1,14 @@
 package spotifyj.utilities;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import spotifyj.spotifyjTest;
+
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URLEncoder;
+import java.io.OutputStream;
+import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -12,6 +17,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.awt.Desktop;
+import java.net.URI;
 
 public class utilities {
     public HashMap<String, String> loadProperties() {
@@ -155,5 +162,34 @@ public class utilities {
         byte[] hashedVerifier = digest.digest(codeVerifier.getBytes(StandardCharsets.UTF_8));
         String encodedVerifier = Base64.getEncoder().encodeToString(hashedVerifier);
         return encodedVerifier;
+    }
+
+    public void openDefaultBrowserWithURL(String url) throws URISyntaxException, IOException {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            Desktop.getDesktop().browse(new URI(url));
+        }
+    }
+
+    public HttpServer HttpServerOpen() throws IOException {
+        HttpServer server = HttpServer.create(new InetSocketAddress(9081), 0);
+        server.createContext("/", new HttpServerHandler());
+        server.setExecutor(null);
+        server.start();
+        return server;
+    }
+
+    public void HttpServerClose(HttpServer server) {
+        server.stop(0);
+    }
+}
+
+class HttpServerHandler implements HttpHandler {
+    @Override
+    public void handle(HttpExchange t) throws IOException {
+        String response = "<h1>Authentication successful. You can close this tab.</>";
+        t.sendResponseHeaders(200, response.length());
+        OutputStream os = t.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
     }
 }

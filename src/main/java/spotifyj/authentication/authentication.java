@@ -1,10 +1,14 @@
 package spotifyj.authentication;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.net.http.*;
+import java.util.logging.Logger;
 
 import spotifyj.utilities.utilities;
 
@@ -39,7 +43,7 @@ public class authentication {
         return responseObject;
     }
 
-    public void requestUserAuth() throws IOException, InterruptedException, NoSuchAlgorithmException {
+    public void requestUserAuth() throws IOException, InterruptedException, NoSuchAlgorithmException, URISyntaxException {
         String tokenURI = "https://accounts.spotify.com/authorize?";
         String state = utilities.generateRandomString(16);
         String redirectURL = "http://localhost:9081";
@@ -55,9 +59,9 @@ public class authentication {
         args.put("code_challenge_method", "S256");
         args.put("code_challenge", codeChallenge);
 
+        utilities.openDefaultBrowserWithURL(tokenURI + utilities.encodeURLParamsString(args));
 
 
-        System.out.println(tokenURI + utilities.encodeURLParamsString(args));
     }
 
 }
